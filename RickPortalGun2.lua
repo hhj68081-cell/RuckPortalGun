@@ -127,17 +127,6 @@ myNameLabel.TextXAlignment = Enum.TextXAlignment.Left
 myNameLabel.Font = Enum.Font.GothamBold
 myNameLabel.Parent = topBar
 
--- Кнопка обновить
-local refreshBtn = Instance.new("TextButton")
-refreshBtn.Size = UDim2.new(0, 80, 0, 34)
-refreshBtn.Position = UDim2.new(1, -90, 0.5, -17)
-refreshBtn.Text = "Обновить"
-refreshBtn.BackgroundColor3 = Color3.fromRGB(0, 200, 100)
-refreshBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-refreshBtn.TextSize = 13
-refreshBtn.Parent = topBar
-refreshBtn.MouseButton1Click:Connect(refreshList)
-
 -- === СПИСОК ИГРОКОВ ===
 local playerList = Instance.new("ScrollingFrame")
 playerList.Size = UDim2.new(1, -20, 0, 290)
@@ -149,6 +138,7 @@ playerList.ScrollBarThickness = 8
 playerList.CanvasSize = UDim2.new(0, 0, 0, 0)
 playerList.Parent = frame
 
+-- === ФУНКЦИЯ ОБНОВЛЕНИЯ (объявлена до кнопки) ===
 local function refreshList()
     for _, child in ipairs(playerList:GetChildren()) do
         if child:IsA("Frame") or child:IsA("TextButton") or child:IsA("ImageLabel") then 
@@ -198,7 +188,18 @@ local function refreshList()
     end
 end
 
-refreshList()
+-- === КНОПКА ОБНОВИТЬ (теперь работает) ===
+local refreshBtn = Instance.new("TextButton")
+refreshBtn.Size = UDim2.new(0, 80, 0, 34)
+refreshBtn.Position = UDim2.new(1, -90, 0.5, -17)
+refreshBtn.Text = "Обновить"
+refreshBtn.BackgroundColor3 = Color3.fromRGB(0, 200, 100)
+refreshBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+refreshBtn.TextSize = 13
+refreshBtn.Parent = topBar
+refreshBtn.MouseButton1Click:Connect(refreshList)
+
+refreshList() -- ← это остаётся, чтобы список заполнился при запуске
 
 local toggleBtn = Instance.new("TextButton")
 toggleBtn.Size = UDim2.new(0, 60, 0, 30)
